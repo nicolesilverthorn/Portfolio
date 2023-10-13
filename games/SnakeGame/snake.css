@@ -1,0 +1,36 @@
+html, body 
+{ 
+	background-color: black;
+	color: #26d3ff;
+}
+
+@font-face 
+{
+	font-family: Risque;
+	src: url("Risque-Regular.otf");
+}
+
+#header
+{
+	margin: 0 0 10px 75px;
+	font-family: Risque;
+	font-size: 2em;
+	font-weight: bold;
+	color: #26d3ff;
+	text-shadow: -1px 0 0 blue, 0 -1px 0 blue, 1px 0 0 blue, 0 1px 0 blue;
+}
+
+p
+{
+	display: inline-block;
+	vertical-align: top;
+	margin-top: 19.5em;
+}
+
+#dirButtons
+{
+	display: inline-block;
+	margin-left: -170px;	
+	text-align: center;
+	font-size: 2.5em;
+}

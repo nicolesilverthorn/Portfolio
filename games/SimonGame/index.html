@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Simon Game</title>	
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<script src="simon.js" type="text/javascript"></script>		
+		<script src="trident.js" type="text/javascript"></script>
+		
+		<script type="text/javascript"> 
+			setTimeout("var a = new Game();", 3000); 
+		</script>
+		
+		<style type="text/css"> 
+			html, body 
+			{ 
+				background-color: black;
+			}
+			#progBar
+			{
+				margin-top: 75px;
+				margin-left: 220px;
+				display: block;
+			}
+		</style> 
+	</head>
+	
+	<body>
+		<div id="progBar">
+			<progress>Loading...</progress>
+		</div>
+	
+		<canvas id="game" width="700" height="700"></canvas>
+	</body>
+</html>

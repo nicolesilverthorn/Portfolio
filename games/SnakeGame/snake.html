@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Snake Game</title>	
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="snake.css" type="text/css" />
+		<script type ="text/javascript" src="jquery.js"></script>	
+		<script type="text/javascript">        
+			$(document).ready(function()
+			{
+				var canvas = $("#canvas")[0];
+				var ctx = canvas.getContext("2d");
+				var w = $("#canvas").width();
+				var h = $("#canvas").height();
+				
+				var cw = 10;   //cell width
+				var dir;
+				var food;
+				var score;
+				
+				//array of cells to make up the snake
+				var snake_array; 
+				
+				function init()
+				{
+					dir = "right"; //default
+					create_snake();
+					create_food();
+					score = 0;
+					
+					//move the snake now using a timer which will trigger the paint() every 60ms
+					if(typeof game_loop != "undefined") clearInterval(game_loop);
+					game_loop = setInterval(paint, 60);
+				}
+				init();
+				
+				function create_snake()
+				{
+					var length = 5; //length of the snake to start with
+					snake_array = []; //empty array to start with
+					for(var i = length - 1; i >= 0; i--)
+					{
+						//create a horizontal snake starting from the top left
+						snake_array.push({x:i, y:0});
+					}
+				}
+				
+				function create_food()
+				{
+					//create a cell with x/y between 0-44 cuz there are 45(450/10) positions across the rows and cols				
+					food = 
+					{
+						x:Math.round(Math.random() * (w - cw) / cw), 
+						y:Math.round(Math.random() * (h - cw) / cw), 
+					};
+				}
+				
+				function paint()
+				{
+					ctx.fillStyle = "white";
+					ctx.fillRect(0, 0, w, h);
+					ctx.strokeStyle = "black";
+					ctx.strokeRect(0, 0, w, h);
+					
+					//movement - pop out the tail cell and place it infront of the head cell
+					var nx = snake_array[0].x;
+					var ny = snake_array[0].y;
+					//these were the pos of the head cell, increment it to get the new head pos, then add proper direction based movement
+					if(dir == "right") 
+					{
+						nx++;
+					}
+					else if(dir == "left") 
+					{
+						nx--;
+					}	
+					else if(dir == "up") 
+					{
+						ny--;
+					}
+					else if(dir == "down") 
+					{
+						ny++;
+					}
+					
+					//restart the game if the snake hits wall or body, after showing alert
+					if(nx == -1 || nx == w / cw || ny == -1 || ny == h / cw || check_collision(nx, ny, snake_array))
+					{
+						alert("Final Score: " + score + ".  Play Again?");
+						init();
+						return;
+					}
+					
+					//make the snake eat the food: if the new head position matches with that of the food, create a new head instead of moving the tail
+					if(nx == food.x && ny == food.y)
+					{
+						var tail = {x: nx, y: ny};
+						score++;
+						//one piece of food on the screen at all times
+						create_food();
+					}
+					else
+					{
+						var tail = snake_array.pop(); //pops out the last cell
+						tail.x = nx; tail.y = ny;
+					}
+					
+					snake_array.unshift(tail); //puts back the tail as the first cell
+					
+					for(var i = 0; i < snake_array.length; i++)
+					{
+						var c = snake_array[i];
+						//paint 10px wide cells
+						paint_cell(c.x, c.y);
+					}
+					
+					//paint the food
+					paint_cell(food.x, food.y);
+					//paint the score
+					var score_text = "Score: " + score;	
+					ctx.fillStyle = "black";
+					ctx.font = "1em Arial";					
+					ctx.fillText(score_text, 5, h - 5);
+				}
+
+				function paint_cell(x, y)
+				{
+					ctx.fillStyle = "#26d3ff";
+					ctx.fillRect(x * cw, y * cw, cw, cw);
+					ctx.strokeStyle = "blue";
+					ctx.strokeRect(x * cw, y * cw, cw, cw);
+				}
+				
+				function check_collision(x, y, array)
+				{
+					//this will check if the provided x/y coordinates exist in an array of cells
+					for(var i = 0; i < array.length; i++)
+					{
+						if(array[i].x == x && array[i].y == y)
+						 return true;
+					}
+					return false;
+				}
+				
+				$(document).keydown(function(e)
+				{
+					var key = e.which;
+					//prevent reversing
+					if(key == "37" && dir != "right") 
+					{
+						dir = "left";
+					}
+					else if(key == "38" && dir != "down") 
+					{
+						dir = "up";
+					}
+					else if(key == "39" && dir != "left") 
+					{
+						dir = "right";
+					}
+					else if(key == "40" && dir != "up") 
+					{
+						dir = "down";
+					}
+				})
+				
+				$("form").on("click", "input:submit", function(e)
+				{
+					var name = $(this).attr("name");
+					
+					switch(name)
+					{
+						case "up":
+							dir = "up";
+							break;
+						case "down":
+							dir = "down";
+							break;
+						case "left":
+							dir = "left";
+							break;
+						case "right":
+							dir = "right";
+							break;			
+						default:
+							break;			
+					}
+					e.preventDefault();
+				})
+			})
+		</script>
+	</head>
+	
+	<body>
+		<div id="header">Nicole's Snake Game</div>
+		
+		<canvas id="canvas" width="450" height="450"></canvas>
+		
+		<p>Use keyboard arrows or these:</p>
+		
+		<form id="dirButtons">	
+			<tr>
+				<td>
+					<input type="submit" name="up" value="&#8657"/><br/>   <!--or &#8593-->
+					<input type="submit" name="left" value="&#8656"/>&#8195&#8194   <!--or &#8592-->
+					<input type="submit" name="right" value="&#8658"/><br/>   <!--or &#8594-->
+					<input type="submit" name="down" value="&#8659"/>   <!--or &#8595-->
+				</td>
+			</tr>
+		</form>
+	</body>
+</html>
