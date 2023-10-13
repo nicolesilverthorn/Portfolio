@@ -1,0 +1,96 @@
+html, body
+{
+	background-color: #000;
+}
+
+#header
+{
+	font-family: trebuchet ms, comic sans ms;
+	font-size: 2.2em;
+	font-weight: bold;
+	letter-spacing: 1.25px;
+	color: #26d3ff;
+	text-shadow: -1px 0 0 #000, 0 -1px 0 #000, 1px 0 0 #000, 0 1px 0 #000;
+	margin-left: 20px;
+	margin-bottom: 5px;
+}
+
+canvas 
+{
+	border: 6px double black;
+	background: white;
+}
+
+img 
+{
+	display: none;
+}
+/*
+form 
+{   
+	border: 2px solid black;
+	width: 40px;
+	float: left;
+	color: #ffffff;   
+	font-family: Georgia, "Times New Roman", Times, serif;   
+	font-size: 13px; 
+} 
+*/
+#buttons
+{ 
+	vertical-align: top;
+	display: inline-block;
+	margin-left: 5px;
+}
+
+#dirButtons
+{
+	display: inline-block;
+	margin-left: -90px;	
+	text-align: center;
+	font-size: 2.5em;
+}
+
+#resetBtn input
+{
+	text-shadow: -1px 0 0 skyblue, 0 -1px 0 skyblue, 1px 0 0 skyblue, 0 1px 0 skyblue;
+	font-family: lucida console, trebuchet ms, comic sans ms;
+	font-size: 1em;
+	width: 90px;   
+	padding: 3px 5px;
+	margin-top: 8px;
+	margin-bottom: 10px;
+	/* round corners: */
+	-webkit-border-radius: 5px;   
+	-moz-border-radius: 5px;   
+	-o-border-radius: 5px;   
+	border-radius: 5px;
+	/* drop shadow: */
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);   
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);   
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+	/* gradient: */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeffff), to(#26d3ff));
+	background-image: -moz-linear-gradient(0 100% 90deg, #26d3ff, #eeffff); 
+}
+
+#nextBtn input
+{
+	text-shadow: -1px 0 0 skyblue, 0 -1px 0 skyblue, 1px 0 0 skyblue, 0 1px 0 skyblue;
+	font-family: lucida console, trebuchet ms, comic sans ms;
+	font-size: 1em;
+	width: 90px;   
+	padding: 3px 5px;
+	/* round corners: */
+	-webkit-border-radius: 5px;   
+	-moz-border-radius: 5px;   
+	-o-border-radius: 5px;   
+	border-radius: 5px;
+	/* drop shadow: */
+	-webkit-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);   
+	-moz-box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);   
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+	/* gradient: */
+	background-image: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eeffff), to(#26d3ff));
+	background-image: -moz-linear-gradient(0 100% 90deg, #26d3ff, #eeffff);
+}
